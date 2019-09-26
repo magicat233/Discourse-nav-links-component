@@ -15,27 +15,29 @@ $.each(sec, function(value) {
       var location = window.location.pathname + '/latest' + sec[2];
     }
     console.log(location);
+
+    api.addNavigationBarItem({
+      name: filter,
+      displayName: sec[0],
+      title: sec[1],
+      href: location
+    });
+    
+    api.modifyClass("component:navigation-item", {
+      active: Ember.computed("contentFilterMode", "filterMode", function() {
+        let contentFilterMode = this.get("content").get("filterMode");
+
+        if (window.location.pathname === location) {
+          return contentFilterMode === filter;
+        } else {
+          return this._super(contentFilterMode, this.get("filterMode"));
+        }
+      })
+    });
+
   });
-  console.log(location);
   
-  api.addNavigationBarItem({
-    name: filter,
-    displayName: sec[0],
-    title: sec[1],
-    href: location
-  });
 
-  api.modifyClass("component:navigation-item", {
-    active: Ember.computed("contentFilterMode", "filterMode", function() {
-      let contentFilterMode = this.get("content").get("filterMode");
-
-      if (window.location.pathname === location) {
-        return contentFilterMode === filter;
-      } else {
-        return this._super(contentFilterMode, this.get("filterMode"));
-      }
-    })
-  });
 });
 
 </script>
