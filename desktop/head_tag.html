@@ -8,9 +8,10 @@ $.each(sec, function(value) {
   var sec = $.map(this.split(";"), $.trim),
     filter = sec[0].replace(/\s+/g, "-").toLowerCase();
   api.onPageChange((url) =>{
-    var root = window.location.pathname.split('/')[1];
+    var root = url.split('/')[1];
     getLocation(root);
-    console.log(url)
+    console.log(url);
+    console.log(getLocation(root));
   });
   function getLocation(root){
       if(root == "c"){
