@@ -7,9 +7,10 @@ var nmlt = settings.Nav_links,
 $.each(sec, function(value) {
   var sec = $.map(this.split(";"), $.trim),
     filter = sec[0].replace(/\s+/g, "-").toLowerCase();
-  api.onPageChange(() =>{
+  api.onPageChange((url) =>{
     var root = window.location.pathname.split('/')[1];
     getLocation(root);
+    console.log(url)
   });
   function getLocation(root){
       if(root == "c"){
@@ -19,14 +20,12 @@ $.each(sec, function(value) {
       }
       return location;
   }
-  console.log(getLocation(window.location.pathname.split('/')[1]));
-  console.log(location);
 
   api.addNavigationBarItem({
     name: filter,
     displayName: sec[0],
     title: sec[1],
-    href: location
+    href: getLocation()
   });
 
   api.modifyClass("component:navigation-item", {
