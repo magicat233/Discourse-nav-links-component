@@ -9,35 +9,37 @@ $.each(sec, function(value) {
     filter = sec[0].replace(/\s+/g, "-").toLowerCase();
   api.onPageChange(() =>{
     var root = window.location.pathname.split('/')[1];
-    if(root == "c"){
-      var location = window.location.pathname + '/l/latest' + sec[2];
-    }else{
-      var location = window.location.pathname + '/latest' + sec[2];
-    }
-    console.log(location);
-
-    api.addNavigationBarItem({
-      name: filter,
-      displayName: sec[0],
-      title: sec[1],
-      href: location
-    });
-    
-    api.modifyClass("component:navigation-item", {
-      active: Ember.computed("contentFilterMode", "filterMode", function() {
-        let contentFilterMode = this.get("content").get("filterMode");
-
-        if (window.location.pathname === location) {
-          return contentFilterMode === filter;
-        } else {
-          return this._super(contentFilterMode, this.get("filterMode"));
-        }
-      })
-    });
-
+    getLocation(root);
   });
+  function getLocation(root){
+      if(root == "c"){
+        var location = window.location.pathname + '/l/latest' + sec[2];
+      }else{
+        var location = window.location.pathname + '/latest' + sec[2];
+      }
+      return location;
+  }
+  console.log(getLocation(root));
+  console.log(location);
   
+  api.addNavigationBarItem({
+    name: filter,
+    displayName: sec[0],
+    title: sec[1],
+    href: location
+  });
 
+  api.modifyClass("component:navigation-item", {
+    active: Ember.computed("contentFilterMode", "filterMode", function() {
+      let contentFilterMode = this.get("content").get("filterMode");
+
+      if (window.location.pathname === location) {
+        return contentFilterMode === filter;
+      } else {
+        return this._super(contentFilterMode, this.get("filterMode"));
+      }
+    })
+  });
 });
 
 </script>
