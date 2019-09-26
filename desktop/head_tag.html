@@ -9,9 +9,9 @@ $.each(sec, function(value) {
   var sec = $.map(this.split(";"), $.trim),
     filter = sec[0].replace(/\s+/g, "-").toLowerCase();
   if(root == ""){
-    var location = root + '/latest' + sec[2];
+    var location = window.location.pathname + '/latest' + sec[2];
   }else{
-    var location = root + '/l/latest' + sec[2];
+    var location = window.location.pathname + '/l/latest' + sec[2];
   }
   console.log(location);
 
