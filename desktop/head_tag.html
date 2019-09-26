@@ -1,19 +1,22 @@
 <script type="text/discourse-plugin" version="0.8.18">
 
 var nmlt = settings.Nav_links,
-  sec = $.map(nmlt.split("|"), $.trim),
-  root = window.location.pathname.split('/')[1];
-  console.log(root);
+  sec = $.map(nmlt.split("|"), $.trim);
+  
 
 $.each(sec, function(value) {
   var sec = $.map(this.split(";"), $.trim),
     filter = sec[0].replace(/\s+/g, "-").toLowerCase();
-  if(root == ""){
-    var location = window.location.pathname + '/latest' + sec[2];
-  }else{
-    var location = window.location.pathname + '/l/latest' + sec[2];
-  }
-  console.log(location);
+  api.onPageChange(() =>{
+    var root = window.location.pathname.split('/')[1];
+    console.log(root);
+    if(root == "c"){
+      var location = window.location.pathname + '/l/latest' + sec[2];
+    }else{
+      var location = window.location.pathname + '/latest' + sec[2];
+    }
+    console.log(location);
+  });
 
   api.addNavigationBarItem({
     name: filter,
