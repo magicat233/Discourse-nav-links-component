@@ -19,9 +19,9 @@ $.each(sec, function(value) {
       }
       return location;
   }
-  console.log(getLocation(root));
+  console.log(getLocation(window.location.pathname.split('/')[1]));
   console.log(location);
-  
+
   api.addNavigationBarItem({
     name: filter,
     displayName: sec[0],
