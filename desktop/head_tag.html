@@ -9,7 +9,6 @@ $.each(sec, function(value) {
     filter = sec[0].replace(/\s+/g, "-").toLowerCase();
   api.onPageChange(() =>{
     var root = window.location.pathname.split('/')[1];
-    console.log(root);
     if(root == "c"){
       var location = window.location.pathname + '/l/latest' + sec[2];
     }else{
@@ -17,7 +16,8 @@ $.each(sec, function(value) {
     }
     console.log(location);
   });
-
+  console.log(location);
+  
   api.addNavigationBarItem({
     name: filter,
     displayName: sec[0],
