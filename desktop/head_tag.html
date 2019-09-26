@@ -7,27 +7,36 @@ var nmlt = settings.Nav_links,
 $.each(sec, function(value) {
   var sec = $.map(this.split(";"), $.trim),
     filter = sec[0].replace(/\s+/g, "-").toLowerCase();
-  api.onPageChange((url) =>{
-    var root = url.split('/')[1];
-    getLocation(root);
-    console.log(url);
-    console.log(getLocation(root));
-  });
-  function getLocation(root){
-      if(root == "c"){
-        var location = window.location.pathname + '/l/latest' + sec[2];
-      }else{
-        var location = window.location.pathname + '/latest' + sec[2];
-      }
-      return location;
-  }
+//  api.onPageChange((url) =>{
+//    var root = url.split('/')[1];
+//    getLocation(root);
+//    console.log(url);
+//    console.log(getLocation(root));
+//  });
+//  function getLocation(root){
+//      if(root == "c"){
+//        var location = window.location.pathname + '/l/latest' + sec[2];
+//      }else{
+//        var location = window.location.pathname + '/latest' + sec[2];
+//      }
+//      return location;
+//  }
+  $( document ).ajaxComplete(function() {
+    var root = window.location.pathname.split('/')[1];
+    if(root == "c"){
+      var location = window.location.pathname + '/l/latest' + sec[2];
+    }else{
+      var location = window.location.pathname + '/latest' + sec[2];
+    }
+    
+    api.addNavigationBarItem({
+      name: filter,
+      displayName: sec[0],
+      title: sec[1],
+      href: location
+    });
+  }); 
 
-  api.addNavigationBarItem({
-    name: filter,
-    displayName: sec[0],
-    title: sec[1],
-    href: getLocation()
-  });
 
   api.modifyClass("component:navigation-item", {
     active: Ember.computed("contentFilterMode", "filterMode", function() {
