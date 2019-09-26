@@ -6,7 +6,12 @@ var nmlt = settings.Nav_links,
 $.each(sec, function(value) {
   var sec = $.map(this.split(";"), $.trim),
     filter = sec[0].replace(/\s+/g, "-").toLowerCase(),
-    location = sec[2];
+    root = window.location.pathname.split('/')[1];
+  if(root == ""){
+    var location = root + '/latest' + sec[2];
+  }else{
+    var location = root + '/l/latest' + sec[2];
+  }
 
   api.addNavigationBarItem({
     name: filter,
