@@ -11,20 +11,23 @@ $.each(sec, function(value) {
     var root = url.split('/')[1];
     getLocation(root);
     console.log(getLocation(root));
+    $("#latestCreatedTopics > a").attr('href','www.baidu.com');
   });
   function getLocation(root){
       if(root == "c"){
-        var location = window.location.pathname + '/l/latest' + sec[2];
+        var location = window.location.href + '/l/latest' + sec[2];
       }else{
-        var location = window.location.pathname + '/latest' + sec[2];
+        var location = window.location.href + '/latest' + sec[2];
       }
-    api.addNavigationBarItem({
-      name: filter,
-      displayName: sec[0],
-      title: sec[1],
-      href: location
-    });
+      return location;
   }
+  api.addNavigationBarItem({
+    name: filter,
+    id: latestCreatedTopics,
+    displayName: sec[0],
+    title: sec[1],
+    href: window.location.href + '/latest?order=created'
+  });
   
 
 
