@@ -9,21 +9,19 @@ $.each(sec, function(value) {
     filter = sec[0].replace(/\s+/g, "-").toLowerCase();
   api.onPageChange((url) =>{
     var root = url.split('/')[1];
-    getLocation(root);
-    console.log(getLocation(root));
-//    $("#latestCreatedTopics > a").attr('href','www.baidu.com');
+    if(root == "c"){
+      var location = window.location.href + '/l/latest' + sec[2];
+    }else{
+      var location = window.location.href + '/latest' + sec[2];
+    }
+    console.log(location);
+    $("#latestCreatedTopics > a").attr('href',location);
   });
-  function getLocation(root){
-      if(root == "c"){
-        var location = window.location.href + '/l/latest' + sec[2];
-      }else{
-        var location = window.location.href + '/latest' + sec[2];
-      }
-      return location;
-  }
+
+
   api.addNavigationBarItem({
     name: filter,
-    id: latestCreatedTopics,
+    id: 'latestCreatedTopics',
     displayName: sec[0],
     title: sec[1],
     href: window.location.href + '/latest?order=created'
